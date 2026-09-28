@@ -1,0 +1,103 @@
+.rich-document-editor {
+  display: grid;
+  gap: 10px;
+}
+.rich-document-editor-surface {
+  min-height: 380px;
+  padding: 4px 24px 12px 20px;
+  border-radius: 4px;
+  transition: background-color 120ms ease;
+}
+.rich-document-editor-surface:focus-within {
+  background: #fcfcfa;
+}
+.rich-document-prose {
+  min-height: 360px;
+  outline: none;
+  color: #454d48;
+  font-size: 12px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+.rich-document-prose > * + * {
+  margin-top: 12px;
+}
+.rich-document-prose p {
+  min-height: 1.7em;
+  margin-bottom: 0;
+  white-space: pre-wrap;
+}
+.rich-document-prose h1,
+.rich-document-prose h2,
+.rich-document-prose h3 {
+  margin: 24px 0 5px;
+  color: #344338;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.rich-document-prose h1 {
+  font-size: 21px;
+}
+.rich-document-prose h2 {
+  font-size: 16px;
+}
+.rich-document-prose h3 {
+  font-size: 14px;
+}
+.rich-document-prose ul,
+.rich-document-prose ol {
+  padding-left: 24px;
+}
+.rich-document-prose li + li {
+  margin-top: 5px;
+}
+.rich-document-prose blockquote {
+  margin-inline: 0;
+  padding: 9px 13px;
+  border-left: 2px solid #cbd5c6;
+  background: #f6f8f4;
+  color: #626e63;
+}
+.rich-document-prose code {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: #f0f1ed;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.92em;
+}
+.rich-document-prose:focus-visible {
+  outline: 2px solid #a9b9a3;
+  outline-offset: 4px;
+}
+.rich-document-loading {
+  min-height: 380px;
+}
+.rich-document-block-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid #e4e7e0;
+  border-radius: 5px;
+  background: #fff;
+  box-shadow: 0 3px 10px #17251d12;
+}
+.rich-document-drag-handle {
+  display: grid;
+  width: 25px;
+  height: 26px;
+  place-items: center;
+  color: #828a7e;
+  cursor: grab;
+}
+.rich-document-drag-handle:active {
+  cursor: grabbing;
+}
+.rich-document-delete-button {
+  color: #8e615a;
+}
+@media (max-width: 540px) {
+  .rich-document-editor-surface {
+    padding-inline: 5px;
+  }
+}
