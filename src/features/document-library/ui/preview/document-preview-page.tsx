@@ -1,7 +1,8 @@
-import { Badge } from '@doscientos/ui'
+import { Badge, Button } from '@doscientos/ui'
 import { Link } from '@tanstack/react-router'
-import { ArrowLeft, ArrowUpRight, Ruler, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight, CheckCircle2, Ruler, ShieldCheck } from 'lucide-react'
 
+import { useDocumentCatalog } from '../../application/document-catalog'
 import { getDocumentPageCount } from '../../application/document-pagination'
 import type { TechnicalDocument } from '../../domain/document'
 import { PdfExportButton } from '../library/pdf-export-button'
@@ -12,7 +13,16 @@ import { DocumentPreviewPages } from './document-preview-pages'
 import './document-preview-page.css'
 
 export function DocumentPreviewPage({ document }: { document: TechnicalDocument }) {
+  const { updateDocument } = useDocumentCatalog()
   const pageCount = getDocumentPageCount(document.blocks, document.photos?.length ?? 0)
+
+  function approveReview() {
+    updateDocument({
+      ...document,
+      status: 'Revisado',
+      updatedAt: new Date().toISOString().slice(0, 10),
+    })
+  }
 
   return (
     <div className="document-preview-page">
@@ -34,6 +44,16 @@ export function DocumentPreviewPage({ document }: { document: TechnicalDocument 
         </div>
         <div className="preview-actions">
           <PdfExportButton document={document} />
+          {document.status === 'En revisión' && (
+            <Button
+              className="preview-approve-button"
+              onPress={approveReview}
+              size="sm"
+              variant="outline"
+            >
+              <CheckCircle2 aria-hidden="true" size={14} /> Aprobar revisión
+            </Button>
+          )}
           <Link
             className="preview-edit-button"
             to="/documents/$documentId/edit"
@@ -86,7 +106,11 @@ export function DocumentPreviewPage({ document }: { document: TechnicalDocument 
               <ShieldCheck aria-hidden="true" size={16} />
               <strong>Revisión profesional</strong>
             </div>
-            <p>El borrador conserva visibles los puntos que deben contrastarse antes de emitir.</p>
+            <p>
+              {document.status === 'Revisado'
+                ? 'Revisión interna registrada. Las comprobaciones técnicas y la firma del responsable siguen siendo manuales.'
+                : 'Antes de emitir, contrasta el cálculo y la normativa; la firma del responsable siempre es manual.'}
+            </p>
             <ul>
               <li>
                 <Badge variant="warning">Pendiente</Badge>

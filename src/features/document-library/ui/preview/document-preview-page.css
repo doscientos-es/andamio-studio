@@ -60,6 +60,15 @@
   min-height: 34px;
   font-size: 11px;
 }
+.preview-actions .preview-approve-button {
+  border: 1px solid #355548;
+  border-radius: 5px;
+  background: #365548;
+  color: white;
+}
+.preview-actions .preview-approve-button:hover {
+  background: #2f493d;
+}
 .preview-edit-button {
   display: inline-flex;
   align-items: center;
